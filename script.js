@@ -1,110 +1,93 @@
-const API_KEY = "77f071aab4f5467787582cdf9f3d4e61";
+
+const API_KEY = "1d3a0eefa97b499d8fbc4ee93eeb40b7";
 const url = "https://newsapi.org/v2/everything?q=";
 
-window.addEventListener('load', () => fetchNews("Pakistan"));
 
-// Function reload the page
-function reload(){
-    window.location.reload();
+function reload() {
+    window.location.reload()
 }
 
-async function fetchNews(query) {
-    try {
-        const response = await fetch(`${url}${query}&apikey=${API_KEY}`);
-        const data = await response.json();
-        bindData(data.articles);
-        // console.log(data);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
+window.addEventListener('load', () => {
+    fetchNews("Pakistan")
+});
+
+async function fetchNews(query){
+    const response = await fetch(`${url}${query}&apiKey=${API_KEY}`)
+    const data = await response.json()
+    console.log(data);
+    
+    bindData(data.articles);
 }
 
-function bindData(articles){
-    const cardsContainer = document.getElementById('cards-container');
+function bindData(articles) {
+    const cardContainer = document.getElementById('cards-container');
     const newsCardTemplate = document.getElementById('template-news-card');
 
-    cardsContainer.innerHTML = "";
-
+    // set to empty beacuse when API once is called and called again so previous content will disapeard and only new will show if we do not empty this the second api call content will apend which we do not want.
+    cardContainer.innerHTML = '';
+    
     articles.forEach(article => {
-        if(!article.urlToImage) return; 
-
-        const cardClone = newsCardTemplate.content.cloneNode(true);
-        
-        fillDataInCard(cardClone, article); 
-        
-        cardsContainer.appendChild(cardClone);
+        if (!article.urlToImage) {
+            return;
+        }
+        const cardClone = newsCardTemplate.content.cloneNode(true); //cloning the news-car-template class
+        fillDataInCard(cardClone, article)
+        cardContainer.appendChild(cardClone); // appending the card clone with api data
     });
 }
 
-// This Function filled the data in card using api apiKey
-function fillDataInCard(cardClone, article){
-    const newsImage = cardClone.querySelector('#news-image');
+function fillDataInCard(cardClone, article) {
+    const newsImg = cardClone.querySelector('#news-image');
     const newsTitle = cardClone.querySelector('#news-title');
     const newsSource = cardClone.querySelector('#news-source');
     const newsDesc = cardClone.querySelector('#news-desc');
 
-    newsImage.src = article.urlToImage;
+    newsImg.src = article.urlToImage;
     newsTitle.innerHTML = article.title;
     newsDesc.innerHTML = article.description;
 
-    // const date = new Date(article.publishedAt).toLocaleString("en-US", {
-    //     timeZone: "Asia/karachi"
-    // });
-    const date = new Date(article.publishedAt).toLocaleString("en-US");
+    const date = new Date(article.publishedAt).toLocaleString("en-Us", {
+        timeZone: "Asia/Jakarta"
+    })
 
-    newsSource.innerHTML = `${article.source.name} , ${date}`;
-
-    // This one goes to main page of the news if you clicked
-
+    newsSource.innerHTML = `${article.source.name} - ${date}`
+    
     cardClone.firstElementChild.addEventListener('click', () => {
         window.open(article.url, "_blank")
     })
-
 }
 
-// Function of Navbar Click news
+let curSelectedNav = []
 
-let curSelectedNav = null;
-function onNavItemCick(id) {
-    fetchNews(id);
+function onNavItemClick(id){
+    fetchNews(id);  
+    // Get all elements with the specified id
+    const navItem = document.querySelectorAll(`#${id}`);
+    // Remove 'active' class from previously selected items
+    curSelectedNav.forEach((navItem) => {
+            navItem?.classList.remove('active'); // if the curSelectedNav is not null then remove active class
+        })
 
-    const navItem = document.getElementById(id);
-
-    curSelectedNav?.classList.remove('active');
-    curSelectedNav = navItem;
-    curSelectedNav.classList.add('active');
+    // Update curSelectedNav with the currently selected items
+    curSelectedNav = []
+    navItem.forEach((item) => {
+        curSelectedNav.push(item);
+        item.classList.add('active');    
+    });
 }
 
 
-// Now For search 
+const searchButton = document.getElementById('search-btn');
 
-const searchBtn = document.getElementById('search-btn');
-const searchText = document.getElementById('search-text');
+searchButton.addEventListener('click', () => {
+    const searchText = document.getElementById('search-text').value;
 
-searchBtn.addEventListener('click', () => {
-    const query = searchText.value;
-
-    if(!query) return;
-
-    fetchNews(query);
-
-    curSelectedNav?.classList.remove('active');
-    curSelectedNav = null;
+    if (!searchText) {
+        return;
+    }
+    fetchNews(searchText);
+    curSelectedNav.forEach((navItem) => {
+        navItem?.classList.remove('active'); // if the curSelectedNav is not null then remove active class
+    })
+    curSelectedNav = []
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
