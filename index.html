@@ -1,79 +1,69 @@
-<!DOCTYPE html>
+<!DOCTYPE html5>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News App</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./mediaQueries.css">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <title>News App</title>
 </head>
 <body>
-
-    <!-- Start Navbar -->
-
+    <!-- Nav section -->
     <nav>
-        <div class="main-nav container flex">
-
-            <a href="#" onclick="reload()" class="company-logo"><img src="./assets/logo.png" alt="Company logo"></a>
-
+        <div class="main-nav flex container">
+                
+            <a href="#" class="company-logo" onclick="reload()"><img src="./assets/newspaper.png" alt="Company Logo"></a>
+            
             <div class="nav-links">
                 <ul class="flex">
-                    <li class="hover-link nav-item" id="psl" onclick="onNavItemCick('psl')">PSL</li>
-                    <li class="hover-link nav-item" id="finance" onclick="onNavItemCick('finance')">Finance</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemCick('politics')">Politics</li>
+                    <li class="hover-link nav-item" id="sports" onclick="onNavItemClick('sports')">Sports</li>
+                    <li class="hover-link nav-item" id="finance" onclick="onNavItemClick('finance')">Finance</li>
+                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('politics')">Politics</li>
                 </ul>
             </div>
 
             <div class="search-bar flex">
-                <input type="text" class="news-input" id="search-text" placeholder="e.g: Science">
-                <button class="search-btn" id="search-btn">Search</button>
+                <input id="search-text" type="text" class="news-input" placeholder="e.g science">
+                <button id="search-button" class="search-button">Search</button>
             </div>
 
         </div>
     </nav>
 
-    <!-- End  Navbar -->
+    <div class="nav-links1">
+            <ul class="flex">
+                <li class="hover-link nav-item" id="sports" onclick="onNavItemClick('sports')">Sports</li>
+                <li class="hover-link nav-item" id="finance" onclick="onNavItemClick('finance')">Finance</li>
+                <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('politics')">Politics</li>
+            </ul>
+    </div>
 
-    <!-- Start Main -->
-
+    <!-- Main section -->
      <main>
-
-        <div class="cards-container container flex " id="cards-container">
-
-        </div>
-
+        <div class="card-container container flex" id="card-container"></div>
      </main>
-
-    <!-- End Main -->
-
-    <!-- Start template (Using Api Thats why ) -->
-
-    <template id="template-news-card">
+   
+    <template id="news-card-template">
 
         <div class="card">
 
             <div class="card-header">
-                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img">
+                <img src="https://via.placeholder.com/400x200" alt="news image" id="news-image">
             </div>
 
             <div class="card-content">
-                <h3 id="news-title">This is The Title</h3>
-                <h6 class="news-source" id="news-source">End Gadget 26/08/2024</h6>
-                <p class="news-desc" id="news-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ea, sapiente non tenetur eius tempora totam quae consequuntur nulla eaque.</p>
+                <h3 id="news-title">This is the Title</h3>
+                <h6 class="news-source" id="news-source">End Gadget 26/08/2023</h6>
+                <p class="news-desc" id="news-desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi qui consectetur sunt dolor fugiat quasi, molestias et autem accusantium veritatis.</p>
             </div>
 
         </div>
 
-    </template>
-
-    <!-- End template -->
-
-
-
-
-
+    </template>  
 
 
     <script src="./script.js"></script>
-    
+
 </body>
 </html>
