@@ -1,4 +1,3 @@
-
 const API_KEY = "1d3a0eefa97b499d8fbc4ee93eeb40b7";
 const url = "https://newsapi.org/v2/everything?q=";
 
@@ -20,8 +19,8 @@ async function fetchNews(query){
 }
 
 function bindData(articles) {
-    const cardContainer = document.getElementById('cards-container');
-    const newsCardTemplate = document.getElementById('template-news-card');
+    const cardContainer = document.getElementById('card-container');
+    const newsCardTemplate = document.getElementById('news-card-template');
 
     // set to empty beacuse when API once is called and called again so previous content will disapeard and only new will show if we do not empty this the second api call content will apend which we do not want.
     cardContainer.innerHTML = '';
@@ -58,7 +57,6 @@ function fillDataInCard(cardClone, article) {
 }
 
 let curSelectedNav = []
-
 function onNavItemClick(id){
     fetchNews(id);  
     // Get all elements with the specified id
@@ -77,8 +75,7 @@ function onNavItemClick(id){
 }
 
 
-const searchButton = document.getElementById('search-btn');
-
+const searchButton = document.getElementById('search-button');
 searchButton.addEventListener('click', () => {
     const searchText = document.getElementById('search-text').value;
 
